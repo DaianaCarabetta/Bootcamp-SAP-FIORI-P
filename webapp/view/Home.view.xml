@@ -12,5 +12,6 @@
 			class="sapUiSmallMarginBottom"
 			press=".onConfirmationMessageBoxPress"
 			width="280px" />
+        <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
     </Page>
 </mvc:View>

@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
-], (Controller, MessageBox) => {
+    "com/bootcamp/sapui5/freestyle/utils/HomeHelper",
+], (Controller, MessageBox, HomeHelper) => {
     "use strict";
     
 
@@ -14,5 +15,10 @@ sap.ui.define([
             var sText = this._oResourceBundle.getText("textConfirmationMessageBox")
 		    MessageBox.confirm(sText);
 		},
+
+        onPress: async function () {
+            let oDatos = await HomeHelper.getDataProducts();
+            
+        },
     });
 });
