@@ -2,7 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageBox",
     "com/bootcamp/sapui5/freestyle/utils/HomeHelper",
-], (Controller, MessageBox, HomeHelper) => {
+    "sap/ui/model/json/JSONModel",
+    
+], (Controller, MessageBox, HomeHelper, JSONModel) => {
     "use strict";
     
 
@@ -18,7 +20,12 @@ sap.ui.define([
 
         onPress: async function () {
             let oDatos = await HomeHelper.getDataProducts();
-            
+             
+            if (oDatos && oDatos[0] && oDatos[0].results) {
+                await HomeHelper.setProductModel(this, oDatos[0].results);
+            } else {
+                console.error("Data is missing or not in expected format.");
+            }
         },
     });
 });

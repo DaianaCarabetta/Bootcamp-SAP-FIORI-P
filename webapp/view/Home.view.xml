@@ -13,5 +13,43 @@
 			press=".onConfirmationMessageBoxPress"
 			width="280px" />
         <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
+
+		<VBox class="sapUiSmallMargin">
+			<Table id="idProductsTable" items="{ProductCollection>/}">
+                <columns>
+                    <Column width="12em">
+                        <Text text="{i18n>Product}" />
+                    </Column>
+                    <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
+                        <Text text="{i18n>UnitsInStock}" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true" hAlign="End">
+                        <Text text="{i18n>QuantityPerUnit}" />
+                    </Column>
+                    <Column hAlign="End">
+                        <Text text="{i18n>UnitPrice}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <ObjectIdentifier title="{ProductCollection>ProductID}" text="{ProductCollection>ProductName}" />
+                            <Text text="{ProductCollection>UnitsInStock}" />
+                            <Text text="{ProductCollection>QuantityPerUnit}" />
+                            <ObjectNumber
+							number="{
+								parts:[{path:'ProductCollection>UnitPrice'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {showMeasure: false}
+							}"
+                            unit="USD" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+
+			
+        </VBox>
+        
     </Page>
 </mvc:View>
