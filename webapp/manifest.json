@@ -95,14 +95,27 @@
                     "target": [
                         "TargetHome"
                     ]
+                },
+                {
+                    "name": "detail",
+                    "pattern": "detail/{ProductID}",
+                    "target": [
+                        "detail"
+                    ]
                 }
             ],
             "targets": {
                 "TargetHome": {
                     "id": "Home",
                     "name": "Home"
+                },
+                "detail": {
+                    "viewId": "detail",
+                    "viewName": "Detail",
+                    "viewLevel": 2
                 }
             }
+            
         },
         "rootView": {
             "viewName": "com.bootcamp.sapui5.freestyle.view.App",

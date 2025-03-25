@@ -31,7 +31,7 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem vAlign="Middle">
+                    <ColumnListItem vAlign="Middle" type="Active" press="onItemPress">
                         <cells>
                             <ObjectIdentifier title="{ProductCollection>ProductID}" text="{ProductCollection>ProductName}" />
                             <Text text="{ProductCollection>UnitsInStock}" />

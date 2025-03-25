@@ -10,7 +10,8 @@ sap.ui.define([
 
     return Controller.extend("com.bootcamp.sapui5.freestyle.controller.Home", {
         onInit() {
-            this._oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle()
+            this._oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+            this.oRouter = this.getOwnerComponent().getRouter();
         },
 
         onConfirmationMessageBoxPress: function () {
@@ -27,5 +28,15 @@ sap.ui.define([
                 console.error("Data is missing or not in expected format.");
             }
         },
+
+        onItemPress: function(oEvent){
+            let oSource = oEvent.getSource();
+
+            let aDatos = oSource.getBindingContext('ProductCollection').getObject();
+
+            this.oRouter.navTo("detail", {
+                ProductID: aDatos.ProductID
+            })
+        }
     });
 });

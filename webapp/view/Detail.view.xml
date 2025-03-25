@@ -1,0 +1,67 @@
+<mvc:View controllerName="com.bootcamp.sapui5.freestyle.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <Page id="pageDetail" title="{i18n>titleDetail}">
+        <VBox>
+            <f:SimpleForm id="SimpleFormDisplay354"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                title="{i18n>Information}"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" >
+                <f:content>
+                    <Label text="{i18n>Product}" />
+                    <Text  text="{ProductName}" />
+
+                    <Label text="{i18n>QuantityPerUnit}" />
+                    <Text text=" {QuantityPerUnit}" />
+
+                    <Label text="{i18n>UnitPrice}" />
+                    <Text text=" {UnitPrice}" />
+
+                    <Label text="{i18n>UnitsInStock}" />
+                    <Text  text="{UnitsInStock}" />
+                </f:content>
+		    </f:SimpleForm>
+
+            <smartTable:SmartTable 
+                id="ST_ORDER_D" 
+                entitySet="Order_Details" 
+                tableBindingPath="Order_Details"
+                initiallyVisibleFields="OrderID,ProductID,UnitPrice,QuantityPerUnit,Discount"
+                tableType="ResponsiveTable" 
+                enableExport="true" 
+                beforeExport="onBeforeExport" 
+                useVariantManagement="false" 
+                useTablePersonalisation="true" 
+                header="{i18n>headerOrderDetails}" 
+                showRowCount="true" 
+                persistencyKey="SmartTableAnalytical_Explored" 
+                enableAutoBinding="true" 
+                class="sapUiResponsiveContentPadding" 
+                enableAutoColumnWidth="true" 
+                editTogglable="false" 
+            >
+				<smartTable:customToolbar></smartTable:customToolbar>
+				<smartTable:layoutData>
+					<FlexItemData growFactor="1" baseSize="0%"/>
+				</smartTable:layoutData>
+			</smartTable:SmartTable>
+        </VBox>
+        
+    </Page>
+</mvc:View>
