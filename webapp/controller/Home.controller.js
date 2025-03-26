@@ -22,7 +22,15 @@ sap.ui.define([
 		},
 
         onPress: async function () {
-            let oDatos = await HomeHelper.getDataProducts();
+            //Filtro Back
+            let oFilter = [];
+            let sValue = this.byId("idLabel1").getValue();
+
+            if(sValue){
+                oFilter =new Filter("ProductName", FilterOperator.Contains, sValue)
+            }
+
+            let oDatos = await HomeHelper.getDataProducts([oFilter]);
              
             if (oDatos && oDatos[0] && oDatos[0].results) {
                 await HomeHelper.setProductModel(this, oDatos[0].results);
@@ -41,8 +49,9 @@ sap.ui.define([
             })
         },
 
+//Filtro Front
         onChange: async function (oEvent) {
-            let oFilter = [];
+            /* let oFilter = [];
             let oSource = oEvent.getSource();
             let oTable = this.getView().byId("idProductsTable");
             let oBinding= oTable.getBinding("items");
@@ -51,7 +60,7 @@ sap.ui.define([
                 oFilter= [new Filter ("ProductID", FilterOperator.EQ, oSource.getValue())];
             }
 
-            oBinding.filter(oFilter);
+            oBinding.filter(oFilter); */
         }
     });
 });
