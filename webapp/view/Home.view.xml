@@ -6,13 +6,12 @@
         <VBox id="vbId01" class="sapUiSmallMargin">
             <Text id="txtId01" text="{i18n>textPruebai18n}" />
         </VBox>
-        <Button
-            id="btConfirm"
-			text="Confirm"
-			class="sapUiSmallMarginBottom"
-			press=".onConfirmationMessageBoxPress"
-			width="280px" />
-        <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
+        
+        <Toolbar>
+            <Input id="idLabel1" change=".onChange"></Input>
+            <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
+        </Toolbar>
+        
 
 		<VBox class="sapUiSmallMargin">
 			<Table id="idProductsTable" items="{ProductCollection>/}">
@@ -46,10 +45,22 @@
                         </cells>
                     </ColumnListItem>
                 </items>
-            </Table>
-
-			
+            </Table>			
         </VBox>
+        
+        <footer>
+			<Bar>
+				<contentRight>
+                    <Button
+                        id="btConfirm"
+                        type="Emphasized"
+                        text="Confirm"
+                        press=".onConfirmationMessageBoxPress"
+                        width="280px"
+                        />
+                </contentRight>
+			</Bar>
+		</footer>
         
     </Page>
 </mvc:View>

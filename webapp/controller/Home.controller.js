@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/m/MessageBox",
     "com/bootcamp/sapui5/freestyle/utils/HomeHelper",
     "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     
-], (Controller, MessageBox, HomeHelper, JSONModel) => {
+], (Controller, MessageBox, HomeHelper, JSONModel, Filter, FilterOperator) => {
     "use strict";
     
 
@@ -37,6 +39,19 @@ sap.ui.define([
             this.oRouter.navTo("detail", {
                 ProductID: aDatos.ProductID
             })
+        },
+
+        onChange: async function (oEvent) {
+            let oFilter = [];
+            let oSource = oEvent.getSource();
+            let oTable = this.getView().byId("idProductsTable");
+            let oBinding= oTable.getBinding("items");
+
+            if (oSource.getValue()){
+                oFilter= [new Filter ("ProductID", FilterOperator.EQ, oSource.getValue())];
+            }
+
+            oBinding.filter(oFilter);
         }
     });
 });
