@@ -1,42 +1,85 @@
-<mvc:View controllerName="com.bootcamp.sapui5.freestyle.controller.Home"
+<mvc:View 
+    controllerName="com.bootcamp.sapui5.freestyle.controller.Home"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    xmlns="sap.m"
-    >
+    xmlns="sap.m">
+
     <Page id="page" title="{i18n>title}">
-        <VBox id="vbId01" class="sapUiSmallMargin">
+        
+        <VBox id="vbId01" class="sapUiSmallMargin" width="100%">
             <Text id="txtId01" text="{i18n>textPruebai18n}" />
         </VBox>
-        
-        <Toolbar>
-            <Input id="idLabel1" value="{LocalDataModel>/valueInput}"></Input><!-- change=".onChange" -->
-            <ComboBox
-                id="comboboxID"
-                selectionChange=".onSelectionChange"
-                selectedKey="{LocalDataModel>/selectedKey}"
-				items="{
-					path: '/Categories',
-					sorter: { path: 'CategoryName' }
-				}">
-				<core:Item key="{CategoryID}" text="{CategoryID}-{CategoryName}" />
-			</ComboBox>
-            <MultiComboBox
-                selectionChange="handleSelectionChange"
-                selectionFinish="handleSelectionFinish"
-                selectedKeys="{LocalDataModel>/selectedKeyMulti}"
-                width="350px"
-                items="{
-                    path: '/Categories',
-                    sorter: { path: 'CategoryName' }
-                }">
-                <core:Item key="{CategoryID}" text="{CategoryID}-{CategoryName}" />
-		    </MultiComboBox>
-            <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
-        </Toolbar>
-        
 
-		<VBox class="sapUiSmallMargin">
-			<Table id="idProductsTable" items="{ProductCollection>/}">
+        <VBox  width="100%">
+            <HBox alignItems="Center" justifyContent="Center" width="100%">
+                <VBox class="sapUiSmallMargin" width="200px">
+                    <Label labelFor="idLabel1" text="{i18n>InputExample}" textAlign="Center"/>
+                    <Input 
+                        id="idLabel1" 
+                        value="{LocalDataModel>/valueInput}" 
+                        width="100%"/>
+                </VBox>
+
+                <VBox class="sapUiSmallMargin" width="250px">
+                    <Label labelFor="comboboxID" text="{i18n>ComboBoxExample}" textAlign="Center"/>
+                    <ComboBox
+                        id="comboboxID"
+                        selectionChange=".onSelectionChange"
+                        selectedKey="{LocalDataModel>/selectedKey}"
+                        width="100%"
+                        items="{
+                            path: '/Categories',
+                            sorter: { path: 'CategoryName' }
+                        }">
+                        <core:Item key="{CategoryID}" text="{CategoryID} - {CategoryName}" />
+                    </ComboBox>
+                </VBox>
+
+                <VBox class="sapUiSmallMargin" width="350px">
+                    <Label labelFor="multiComboBoxID" text="{i18n>MultiComboBoxExample}" textAlign="Center"/>
+                    <MultiComboBox
+                        id="multiComboBoxID"
+                        selectionChange="handleSelectionChange"
+                        selectionFinish="handleSelectionFinish"
+                        selectedKeys="{LocalDataModel>/selectedKeyMulti}"
+                        width="100%"
+                        items="{
+                            path: '/Categories',
+                            sorter: { path: 'CategoryName' }
+                        }">
+                        <core:Item key="{CategoryID}" text="{CategoryID} - {CategoryName}" />
+                    </MultiComboBox>
+                </VBox>
+
+                <VBox class="sapUiSmallMargin" width="300px">
+                    <Label labelFor="multiInput" text="{i18n>MultiInputExample}" textAlign="Center"/>
+                    <MultiInput 
+                        id="multiInput"
+                        width="100%"
+                        showClearIcon="true"
+                        selectedKey="{LocalDataModel>/selectedItem}"
+                        suggestionItems="{
+                            path: '/Suppliers',
+                            sorter: { path: 'CompanyName' }
+                        }"
+                        showValueHelp="false">
+                        <core:Item key="{SupplierID}" text="{SupplierID} - {CompanyName}" />
+                    </MultiInput>
+                </VBox>
+
+                <VBox class="sapUiSmallMargin" width="150px">
+                    <Label labelFor="btSearch" textAlign="Center"/>
+                    <Button 
+                        id="btSearch" 
+                        text="{i18n>textButton}" 
+                        press="onPress"
+                        width="100%"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox class="sapUiSmallMargin"  >
+            <Table id="idProductsTable" items="{ProductCollection>/}">
                 <columns>
                     <Column width="12em">
                         <Text text="{i18n>Product}" />
@@ -51,42 +94,47 @@
                         <Text text="{i18n>CategoryID}" />
                     </Column>
                     <Column hAlign="End">
+                        <Text text="{i18n>SupplierID}" />
+                    </Column>
+                    <Column hAlign="End">
                         <Text text="{i18n>UnitPrice}" />
                     </Column>
                 </columns>
                 <items>
                     <ColumnListItem vAlign="Middle" type="Active" press="onItemPress">
                         <cells>
-                            <ObjectIdentifier title="{ProductCollection>ProductID}" text="{ProductCollection>ProductName}" />
+                            <ObjectIdentifier 
+                                title="{ProductCollection>ProductID}" 
+                                text="{ProductCollection>ProductName}" />
                             <Text text="{ProductCollection>UnitsInStock}" />
                             <Text text="{ProductCollection>QuantityPerUnit}" />
                             <Text text="{ProductCollection>CategoryID}" />
+                            <Text text="{ProductCollection>SupplierID}" />
                             <ObjectNumber
-							number="{
-								parts:[{path:'ProductCollection>UnitPrice'}],
-								type: 'sap.ui.model.type.Currency',
-								formatOptions: {showMeasure: false}
-							}"
-                            unit="USD" />
+                                number="{
+                                    parts:[{path:'ProductCollection>UnitPrice'}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {showMeasure: false}
+                                }"
+                                unit="USD" />
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>			
         </VBox>
-        
+
         <footer>
-			<Bar>
-				<contentRight>
+            <Bar>
+                <contentRight>
                     <Button
                         id="btConfirm"
                         type="Emphasized"
                         text="Confirm"
                         press=".onConfirmationMessageBoxPress"
-                        width="280px"
-                        />
+                        width="280px"/>
                 </contentRight>
-			</Bar>
-		</footer>
-        
+            </Bar>
+        </footer>
+
     </Page>
 </mvc:View>

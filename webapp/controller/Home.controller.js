@@ -28,7 +28,10 @@ sap.ui.define([
             /* let sValue = this.byId("idLabel1").getValue();
             let sValueCombo = this.byId("comboboxID").getSelectedKey(); */
 
-            let values= this.getOwnerComponent().getModel("LocalDataModel").getData();
+            let oTable = this.getView().byId("idProductsTable");
+            let oBinding = oTable.getBinding("items");
+            
+            let values = this.getOwnerComponent().getModel("LocalDataModel").getData();
 
             // Filltro Input
             if(values.valueInput){
@@ -40,11 +43,19 @@ sap.ui.define([
             }
             // Filtro MultiComboBox
             if (values.selectedMultiKeys && values.selectedMultiKeys.length > 0) {
-                let multiFilters = values.selectedMultiKeys.map(key => new Filter("CategoryID", FilterOperator.EQ, key));
-                oFilter.push(new Filter({ filters: multiFilters, and: false }));
-            }
-            this.onSearch(oFilter)
 
+                /* let multiFilters = values.selectedMultiKeys.map(key => new Filter("CategoryID", FilterOperator.EQ, key)); */
+                values.selectedMultiKeys.forEach(element => {
+                    oFilter.push(new Filter("CategoryID", FilterOperator.EQ, element));
+                });
+                /* oFilter.push(new Filter({ filters: multiFilters, and: false })); */
+            }
+            //Supplier
+            if (values.selectedItem){
+                oFilter.push(new Filter("SupplierID", FilterOperator.EQ, values.selectedItem));
+            }
+            /* this.onSearch(oFilter) */
+            oBinding.filter(oFilter);
             /* let oDatos = await HomeHelper.getDataProducts([oFilter]);
              
             if (oDatos && oDatos[0] && oDatos[0].results) {
