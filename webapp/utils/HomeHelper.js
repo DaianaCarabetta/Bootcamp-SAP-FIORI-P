@@ -14,6 +14,7 @@ sap.ui.define([
             oComponent.setModel(new JSONModel({
                 valueInput:'',
                 selectedKey:'',
+                selectedKeyMulti:[],
             }), "LocalDataModel");
         },
 

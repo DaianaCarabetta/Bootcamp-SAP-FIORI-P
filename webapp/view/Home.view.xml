@@ -20,6 +20,17 @@
 				}">
 				<core:Item key="{CategoryID}" text="{CategoryID}-{CategoryName}" />
 			</ComboBox>
+            <MultiComboBox
+                selectionChange="handleSelectionChange"
+                selectionFinish="handleSelectionFinish"
+                selectedKeys="{LocalDataModel>/selectedKeyMulti}"
+                width="350px"
+                items="{
+                    path: '/Categories',
+                    sorter: { path: 'CategoryName' }
+                }">
+                <core:Item key="{CategoryID}" text="{CategoryID}-{CategoryName}" />
+		    </MultiComboBox>
             <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
         </Toolbar>
         

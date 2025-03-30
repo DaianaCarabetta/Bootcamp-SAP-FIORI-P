@@ -30,11 +30,18 @@ sap.ui.define([
 
             let values= this.getOwnerComponent().getModel("LocalDataModel").getData();
 
+            // Filltro Input
             if(values.valueInput){
                 oFilter.push(new Filter("ProductName", FilterOperator.Contains, values.valueInput));
             }
+            // Filtro ComboBox
             if(values.selectedKey){
                 oFilter.push(new Filter("CategoryID", FilterOperator.EQ, values.selectedKey));
+            }
+            // Filtro MultiComboBox
+            if (values.selectedMultiKeys && values.selectedMultiKeys.length > 0) {
+                let multiFilters = values.selectedMultiKeys.map(key => new Filter("CategoryID", FilterOperator.EQ, key));
+                oFilter.push(new Filter({ filters: multiFilters, and: false }));
             }
             this.onSearch(oFilter)
 
@@ -74,6 +81,21 @@ sap.ui.define([
             }
 
             oBinding.filter(oFilter); */
-        }
+        },
+
+        handleSelectionChange: function (oEvent) {
+            let oSource = oEvent.getSource();
+            let aSelectedItems = oSource.getSelectedItems();
+
+            let aKeys = aSelectedItems.map(item => item.getKey());
+            let oModel = this.getOwnerComponent().getModel("LocalDataModel");
+
+            oModel.setProperty("/selectedMultiKeys", aKeys); 
+        },
+
+       
+        handleSelectionFinish: function (oEvent) {
+            this.onPress(); 
+        },
     });
 });
