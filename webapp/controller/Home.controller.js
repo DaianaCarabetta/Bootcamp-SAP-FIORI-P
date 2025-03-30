@@ -14,6 +14,7 @@ sap.ui.define([
         onInit() {
             this._oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             this.oRouter = this.getOwnerComponent().getRouter();
+            this.onSearch([]);
         },
 
         onConfirmationMessageBoxPress: function () {
@@ -21,22 +22,34 @@ sap.ui.define([
 		    MessageBox.confirm(sText);
 		},
 
-        onPress: async function () {
+        onPress: async function (oEvent) {
             //Filtro Back
             let oFilter = [];
-            let sValue = this.byId("idLabel1").getValue();
+            /* let sValue = this.byId("idLabel1").getValue();
+            let sValueCombo = this.byId("comboboxID").getSelectedKey(); */
 
-            if(sValue){
-                oFilter =new Filter("ProductName", FilterOperator.Contains, sValue)
+            let values= this.getOwnerComponent().getModel("LocalDataModel").getData();
+
+            if(values.valueInput){
+                oFilter.push(new Filter("ProductName", FilterOperator.Contains, values.valueInput));
             }
+            if(values.selectedKey){
+                oFilter.push(new Filter("CategoryID", FilterOperator.EQ, values.selectedKey));
+            }
+            this.onSearch(oFilter)
 
-            let oDatos = await HomeHelper.getDataProducts([oFilter]);
+            /* let oDatos = await HomeHelper.getDataProducts([oFilter]);
              
             if (oDatos && oDatos[0] && oDatos[0].results) {
                 await HomeHelper.setProductModel(this, oDatos[0].results);
             } else {
                 console.error("Data is missing or not in expected format.");
-            }
+            } */
+        },
+
+        onSearch: async function (oFilter) {
+            let oDatos= await HomeHelper.getDataProducts([oFilter]);
+            await HomeHelper.setProductModel(this, oDatos[0].results);    
         },
 
         onItemPress: function(oEvent){

@@ -1,5 +1,6 @@
 <mvc:View controllerName="com.bootcamp.sapui5.freestyle.controller.Home"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m"
     >
     <Page id="page" title="{i18n>title}">
@@ -8,7 +9,17 @@
         </VBox>
         
         <Toolbar>
-            <Input id="idLabel1" change=".onChange"></Input>
+            <Input id="idLabel1" value="{LocalDataModel>/valueInput}"></Input><!-- change=".onChange" -->
+            <ComboBox
+                id="comboboxID"
+                selectionChange=".onSelectionChange"
+                selectedKey="{LocalDataModel>/selectedKey}"
+				items="{
+					path: '/Categories',
+					sorter: { path: 'CategoryName' }
+				}">
+				<core:Item key="{CategoryID}" text="{CategoryID}-{CategoryName}" />
+			</ComboBox>
             <Button id="btSearch" text="{i18n>textButton}" press="onPress"></Button>
         </Toolbar>
         
@@ -26,6 +37,9 @@
                         <Text text="{i18n>QuantityPerUnit}" />
                     </Column>
                     <Column hAlign="End">
+                        <Text text="{i18n>CategoryID}" />
+                    </Column>
+                    <Column hAlign="End">
                         <Text text="{i18n>UnitPrice}" />
                     </Column>
                 </columns>
@@ -35,6 +49,7 @@
                             <ObjectIdentifier title="{ProductCollection>ProductID}" text="{ProductCollection>ProductName}" />
                             <Text text="{ProductCollection>UnitsInStock}" />
                             <Text text="{ProductCollection>QuantityPerUnit}" />
+                            <Text text="{ProductCollection>CategoryID}" />
                             <ObjectNumber
 							number="{
 								parts:[{path:'ProductCollection>UnitPrice'}],
