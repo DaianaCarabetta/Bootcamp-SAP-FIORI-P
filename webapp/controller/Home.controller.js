@@ -5,12 +5,16 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "com/bootcamp/sapui5/freestyle/utils/formatter",
     
-], (Controller, MessageBox, HomeHelper, JSONModel, Filter, FilterOperator) => {
+], (Controller, MessageBox, HomeHelper, JSONModel, Filter, FilterOperator, formatter) => {
     "use strict";
     
 
     return Controller.extend("com.bootcamp.sapui5.freestyle.controller.Home", {
+
+        formatter: formatter,
+        
         onInit() {
             this._oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
             this.oRouter = this.getOwnerComponent().getRouter();
@@ -108,5 +112,7 @@ sap.ui.define([
         handleSelectionFinish: function (oEvent) {
             this.onPress(); 
         },
+
+        
     });
 });

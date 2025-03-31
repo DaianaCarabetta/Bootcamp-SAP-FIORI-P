@@ -106,17 +106,28 @@
                             <ObjectIdentifier 
                                 title="{ProductCollection>ProductID}" 
                                 text="{ProductCollection>ProductName}" />
-                            <Text text="{ProductCollection>UnitsInStock}" />
+                            <ObjectNumber
+                                id= "UnitsInStockID"
+                                number="{
+                                    parts:[{path:'ProductCollection>UnitsInStock'}],
+                                    type: 'sap.ui.model.type.Currency',
+                                    formatOptions: {showMeasure: false}
+                                }"
+                                state="{= ${ProductCollection>UnitsInStock} >= 50 ? 'Error' : ${ProductCollection>UnitsInStock} >= 10 ? 'Warning' : 'Success'}"                               
+                                 />
                             <Text text="{ProductCollection>QuantityPerUnit}" />
                             <Text text="{ProductCollection>CategoryID}" />
                             <Text text="{ProductCollection>SupplierID}" />
                             <ObjectNumber
+                                id="UnitPriceID"
                                 number="{
                                     parts:[{path:'ProductCollection>UnitPrice'}],
                                     type: 'sap.ui.model.type.Currency',
                                     formatOptions: {showMeasure: false}
                                 }"
+                                state="{path:'ProductCollection>UnitPrice', formatter:'.formatter.getStateUnit'}"
                                 unit="USD" />
+                            
                         </cells>
                     </ColumnListItem>
                 </items>
